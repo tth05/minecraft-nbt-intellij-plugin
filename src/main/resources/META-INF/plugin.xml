@@ -1,0 +1,29 @@
+<idea-plugin>
+    <id>com.github.tth05.minecraft-nbt-intellij-plugin</id>
+    <name>Minecraft NBT Support</name>
+    <vendor></vendor>
+
+    <description><![CDATA[<p>Provides support for the NBT format used by Minecraft</p>]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <fileType name="NBT" implementationClass="com.github.tth05.minecraftnbtintellijplugin.NBTFileType"
+                  fieldName="INSTANCE" extensions="nbt"/>
+        <fileEditorProvider implementation="com.github.tth05.minecraftnbtintellijplugin.editor.NBTFileEditorProvider"/>
+    </extensions>
+
+    <actions>
+        <action id="com.github.tth05.minecraftnbtintellijplugin.actions.RenameAction"
+                class="com.github.tth05.minecraftnbtintellijplugin.actions.RenameAction"/>
+        <group id="com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"
+               class="com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"
+               popup="true">
+        </group>
+    </actions>
+</idea-plugin>
