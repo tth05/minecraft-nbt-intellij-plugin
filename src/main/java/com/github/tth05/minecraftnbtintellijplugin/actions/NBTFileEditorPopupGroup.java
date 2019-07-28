@@ -24,7 +24,7 @@ public class NBTFileEditorPopupGroup extends ActionGroup {
 		if (nbtFileEditorUI != null) {
 			if (nbtFileEditorUI.getTree().getSelectionModel().getSelectionCount() > 1)
 				//Only delete on multi-select
-				return new AnAction[0];
+				return new AnAction[] {new DeleteAction()};
 
 			List<AnAction> actions = new ArrayList<>();
 			NBTValueTreeNode node = (NBTValueTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent();
@@ -41,12 +41,12 @@ public class NBTFileEditorPopupGroup extends ActionGroup {
 				actions.add(new ChangeTypeAction());
 			}
 
-			if(node.getType().hasValue())
+			if (node.getType().hasValue())
 				actions.add(new ChangeValueAction());
 
 			actions.add(new Separator());
 
-			if(node.getType().allowsChildren())
+			if (node.getType().allowsChildren())
 				actions.add(new AddChildAction());
 
 			actions.add(new DeleteAction());
