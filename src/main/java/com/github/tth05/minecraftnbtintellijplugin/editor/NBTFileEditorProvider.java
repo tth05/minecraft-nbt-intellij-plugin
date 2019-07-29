@@ -17,7 +17,8 @@ import java.util.List;
 public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 	@Override
 	public boolean accept(@NotNull Project project, @NotNull VirtualFile file) {
-		return FileTypeRegistry.getInstance().isFileOfType(file, FileTypeRegistry.getInstance().getFileTypeByExtension("nbt"));
+		return FileTypeRegistry.getInstance()
+				.isFileOfType(file, FileTypeRegistry.getInstance().getFileTypeByExtension("nbt"));
 	}
 
 	@NotNull
@@ -40,13 +41,14 @@ public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 
 	@NotNull
 	@Override
-	public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project, @NotNull VirtualFile file) {
+	public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project,
+	                                 @NotNull VirtualFile file) {
 		List<String> openedNodes = new ArrayList<>();
 
 		Element rootElement = sourceElement.getChild("openedNodes");
-		for(int i = 0; ; i++) {
+		for (int i = 0; ; i++) {
 			String text = rootElement.getChildText("index" + i);
-			if(text == null)
+			if (text == null)
 				break;
 			openedNodes.add(text);
 		}
@@ -56,12 +58,12 @@ public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 
 	@Override
 	public void writeState(@NotNull FileEditorState state, @NotNull Project project, @NotNull Element targetElement) {
-		if(state instanceof NBTFileEditorState) {
+		if (state instanceof NBTFileEditorState) {
 			NBTFileEditorState editorState = (NBTFileEditorState) state;
 			List<String> openedNodes = editorState.getOpenedNodes();
 
 			Element rootElement = new Element("openedNodes");
-			for(int i = 0; i < openedNodes.size(); i++) {
+			for (int i = 0; i < openedNodes.size(); i++) {
 				Element element = new Element("index" + i);
 				element.setText(openedNodes.get(i));
 				rootElement.addContent(element);

@@ -45,7 +45,7 @@ public class NBTFileEditor implements FileEditor {
 
 	@Override
 	public void setState(@NotNull FileEditorState state) {
-		if(!(state instanceof NBTFileEditorState))
+		if (!(state instanceof NBTFileEditorState))
 			return;
 		NBTFileEditorState editorState = (NBTFileEditorState) state;
 		for (int i = 0; i < this.component.getTree().getRowCount(); i++) {

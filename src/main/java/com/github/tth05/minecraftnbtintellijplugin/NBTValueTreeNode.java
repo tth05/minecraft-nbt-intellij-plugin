@@ -59,11 +59,11 @@ public class NBTValueTreeNode extends DefaultMutableTreeNode {
 
 	public String getValueAsString() {
 		String stringValue = "Unknown value type";
-		if(this.value == null)
+		if (this.value == null)
 			stringValue = "";
-		else if(this.value instanceof String)
+		else if (this.value instanceof String)
 			stringValue = "\"" + this.value.toString() + "\"";
-		else if(this.value instanceof Number)
+		else if (this.value instanceof Number)
 			stringValue = DECIMAL_FORMAT.format(this.value);
 		return stringValue;
 	}

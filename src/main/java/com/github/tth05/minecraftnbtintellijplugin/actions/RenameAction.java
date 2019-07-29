@@ -18,19 +18,21 @@ public class RenameAction extends AnAction {
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		NBTFileEditorUI nbtFileEditorUI = e.getData(NBTFileEditorUI.DATA_KEY);
 		if (nbtFileEditorUI != null) {
-			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent());
+			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
+					.getLastSelectedPathComponent());
 
-			String inputString = Messages.showInputDialog("Rename this tag to:", "Rename", null, selectedNode.getName(), new InputValidator() {
-				@Override
-				public boolean checkInput(String inputString) {
-					return inputString != null && !inputString.trim().isEmpty();
-				}
+			String inputString = Messages.showInputDialog("Rename this tag to:", "Rename", null, selectedNode.getName(),
+					new InputValidator() {
+						@Override
+						public boolean checkInput(String inputString) {
+							return inputString != null && !inputString.trim().isEmpty();
+						}
 
-				@Override
-				public boolean canClose(String inputString) {
-					return inputString != null && !inputString.trim().isEmpty();
-				}
-			});
+						@Override
+						public boolean canClose(String inputString) {
+							return inputString != null && !inputString.trim().isEmpty();
+						}
+					});
 			if (inputString != null) {
 				selectedNode.setName(inputString);
 				nbtFileEditorUI.repaint();

@@ -19,19 +19,21 @@ public class ChangeValueAction extends AnAction {
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		NBTFileEditorUI nbtFileEditorUI = e.getData(NBTFileEditorUI.DATA_KEY);
 		if (nbtFileEditorUI != null) {
-			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent());
+			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
+					.getLastSelectedPathComponent());
 
-			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null, selectedNode.getValueAsString(), new InputValidator() {
-				@Override
-				public boolean checkInput(String inputString) {
-					return selectedNode.getType().getValueValidator().apply(inputString);
-				}
+			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null,
+					selectedNode.getValueAsString(), new InputValidator() {
+						@Override
+						public boolean checkInput(String inputString) {
+							return selectedNode.getType().getValueValidator().apply(inputString);
+						}
 
-				@Override
-				public boolean canClose(String inputString) {
-					return selectedNode.getType().getValueValidator().apply(inputString);
-				}
-			});
+						@Override
+						public boolean canClose(String inputString) {
+							return selectedNode.getType().getValueValidator().apply(inputString);
+						}
+					});
 			if (inputString != null) {
 				selectedNode.setValue(selectedNode.getType().getStringToValueConverter().apply(inputString));
 				nbtFileEditorUI.repaint();

@@ -60,7 +60,8 @@ public enum NBTTagType {
 	BYTE_ARRAY(IconLoader.getIcon("/icons/TAG_Byte_Array.png"), true, false, null, null, null),
 	INT_ARRAY(IconLoader.getIcon("/icons/TAG_Int_Array.png"), true, false, null, null, null),
 	LONG_ARRAY(IconLoader.getIcon("/icons/TAG_Int_Array.png"), true, false, null, null, null),
-	STRING(IconLoader.getIcon("/icons/TAG_String.png"), false, true, "", (v) -> v != null && v.length() < 32767, (s) -> s);
+	STRING(IconLoader.getIcon("/icons/TAG_String.png"), false, true, "", (v) -> v != null && v.length() < 32767,
+			(s) -> s);
 
 	private final Icon icon;
 	private final boolean allowsChildren;
@@ -70,11 +71,11 @@ public enum NBTTagType {
 	private final Function<String, Object> stringToValueConverter;
 
 	NBTTagType(Icon icon,
-			   boolean allowsChildren,
-			   boolean hasValue,
-			   Object defaultValue,
-			   Function<String, Boolean> valueValidator,
-			   Function<String, Object> stringToValueConverter) {
+	           boolean allowsChildren,
+	           boolean hasValue,
+	           Object defaultValue,
+	           Function<String, Boolean> valueValidator,
+	           Function<String, Object> stringToValueConverter) {
 		this.icon = icon;
 		this.allowsChildren = allowsChildren;
 		this.hasValue = hasValue;

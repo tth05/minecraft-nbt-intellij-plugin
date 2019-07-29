@@ -38,14 +38,16 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		this.tree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				if(SwingUtilities.isRightMouseButton(e)) {
+				if (SwingUtilities.isRightMouseButton(e)) {
 					//Find right clicked row and make sure it's selected
 					int row = tree.getClosestRowForLocation(e.getX(), e.getY());
 
-					if(!tree.isRowSelected(row))
+					if (!tree.isRowSelected(row))
 						tree.setSelectionRow(row);
 
-					ActionPopupMenu menu = ActionManager.getInstance().createActionPopupMenu(ActionPlaces.POPUP, (ActionGroup) ActionManager.getInstance().getAction("com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"));
+					ActionPopupMenu menu = ActionManager.getInstance().createActionPopupMenu(ActionPlaces.POPUP,
+							(ActionGroup) ActionManager.getInstance().getAction(
+									"com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"));
 					menu.setTargetComponent(NBTFileEditorUI.this);
 					menu.getComponent().show(e.getComponent(), e.getX(), e.getY());
 				}
@@ -65,7 +67,7 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 	@Nullable
 	@Override
 	public Object getData(@NotNull String dataId) {
-		if(DATA_KEY.is(dataId))
+		if (DATA_KEY.is(dataId))
 			return this;
 		return null;
 	}

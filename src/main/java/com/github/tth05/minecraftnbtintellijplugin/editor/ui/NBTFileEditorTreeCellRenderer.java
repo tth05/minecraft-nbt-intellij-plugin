@@ -9,9 +9,10 @@ import javax.swing.JTree;
 public class NBTFileEditorTreeCellRenderer extends NodeRenderer {
 
 	@Override
-	public void customizeCellRenderer(@NotNull JTree tree, Object value, boolean selected, boolean expanded, boolean leaf, int row, boolean hasFocus) {
+	public void customizeCellRenderer(@NotNull JTree tree, Object value, boolean selected, boolean expanded,
+	                                  boolean leaf, int row, boolean hasFocus) {
 		super.customizeCellRenderer(tree, value, selected, expanded, leaf, row, hasFocus);
-		if(value instanceof NBTValueTreeNode) {
+		if (value instanceof NBTValueTreeNode) {
 			NBTValueTreeNode node = (NBTValueTreeNode) value;
 			setIcon(node.getType().getIcon());
 		}
