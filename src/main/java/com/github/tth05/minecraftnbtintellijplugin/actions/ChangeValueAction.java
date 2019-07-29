@@ -21,7 +21,7 @@ public class ChangeValueAction extends AnAction {
 		if (nbtFileEditorUI != null) {
 			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent());
 
-			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", AllIcons.Actions.Edit, selectedNode.getValueAsString(), new InputValidator() {
+			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null, selectedNode.getValueAsString(), new InputValidator() {
 				@Override
 				public boolean checkInput(String inputString) {
 					return selectedNode.getType().getValueValidator().apply(inputString);
@@ -33,7 +33,7 @@ public class ChangeValueAction extends AnAction {
 				}
 			});
 			if (inputString != null) {
-				selectedNode.setValue(inputString);
+				selectedNode.setValue(selectedNode.getType().getStringToValueConverter().apply(inputString));
 				nbtFileEditorUI.repaint();
 			}
 		}

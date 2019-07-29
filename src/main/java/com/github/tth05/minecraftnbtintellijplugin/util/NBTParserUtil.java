@@ -66,7 +66,7 @@ public class NBTParserUtil {
 		}
 		name = new String(nameBytes);
 
-		NBTValueTreeNode root = new NBTValueTreeNode(NBTTagType.COMPOUND, name, "");
+		NBTValueTreeNode root = new NBTValueTreeNode(NBTTagType.COMPOUND, name, null);
 		loadNBTDataOfCompound(root, data);
 		return root;
 	}
@@ -126,12 +126,12 @@ public class NBTParserUtil {
 				}
 				return listNode;
 			case 10:
-				NBTValueTreeNode compoundNode = new NBTValueTreeNode(NBTTagType.COMPOUND, name, "");
+				NBTValueTreeNode compoundNode = new NBTValueTreeNode(NBTTagType.COMPOUND, name, null);
 				loadNBTDataOfCompound(compoundNode, data);
 				return compoundNode;
 			default:
 				//TODO: Throw exception
-				return new NBTValueTreeNode(NBTTagType.COMPOUND, "Error", "");
+				return new NBTValueTreeNode(NBTTagType.COMPOUND, "Error", null);
 		}
 	}
 }
