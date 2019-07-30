@@ -25,7 +25,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Short::valueOf),
-	FLOAT(IconLoader.getIcon("/icons/TAG_Float.png"), false, true, 0, (v) -> {
+	FLOAT(IconLoader.getIcon("/icons/TAG_Float.png"), false, true, 0.0F, (v) -> {
 		try {
 			Float.parseFloat(v);
 			return true;
@@ -49,7 +49,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Long::valueOf),
-	DOUBLE(IconLoader.getIcon("/icons/TAG_Double.png"), false, true, 0, (v) -> {
+	DOUBLE(IconLoader.getIcon("/icons/TAG_Double.png"), false, true, 0.0D, (v) -> {
 		try {
 			Double.parseDouble(v);
 			return true;

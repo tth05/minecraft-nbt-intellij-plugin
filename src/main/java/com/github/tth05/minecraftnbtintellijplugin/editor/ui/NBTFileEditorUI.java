@@ -42,8 +42,12 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 					//Find right clicked row and make sure it's selected
 					int row = tree.getClosestRowForLocation(e.getX(), e.getY());
 
-					if (!tree.isRowSelected(row))
+					if (!tree.isRowSelected(row)) {
 						tree.setSelectionRow(row);
+						//Request focus to make the tree instantly update after something has changed by performing an
+						// action. Without focus the tree wouldn't repaint
+						NBTFileEditorUI.this.requestFocus();
+					}
 
 					ActionPopupMenu menu = ActionManager.getInstance().createActionPopupMenu(ActionPlaces.POPUP,
 							(ActionGroup) ActionManager.getInstance().getAction(
