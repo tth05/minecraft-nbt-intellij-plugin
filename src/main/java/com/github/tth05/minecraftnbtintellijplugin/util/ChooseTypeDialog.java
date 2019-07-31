@@ -7,6 +7,7 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.SimpleListCellRenderer;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.BorderFactory;
@@ -16,12 +17,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class ChooseTypeDialog extends DialogWrapper {
 
 	private final ComboBox<NBTTagType> comboBox;
 
-	public ChooseTypeDialog(@Nullable Project project) {
+	public ChooseTypeDialog(@Nullable Project project, @NotNull NBTTagType selectedType) {
 		super(project, true);
 		setTitle("Choose Type");
 
@@ -29,7 +31,8 @@ public class ChooseTypeDialog extends DialogWrapper {
 			setButtonsAlignment(SwingConstants.CENTER);
 		}
 
-		this.comboBox = new ComboBox<>(NBTTagType.values(), 170);
+		this.comboBox = new ComboBox<>(NBTTagType.values());
+		this.comboBox.setSelectedItem(selectedType);
 		this.comboBox.setRenderer(new SimpleListCellRenderer<NBTTagType>() {
 			@Override
 			public void customize(JList<? extends NBTTagType> list, NBTTagType value, int index, boolean selected,
@@ -46,7 +49,7 @@ public class ChooseTypeDialog extends DialogWrapper {
 	@Override
 	protected JComponent createCenterPanel() {
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.setPreferredSize(getPreferredSize());
+		panel.setPreferredSize(new Dimension(330, getPreferredSize().height));
 
 		JLabel label = new JLabel("Choose the new type for this node:");
 		label.setBorder(BorderFactory.createEmptyBorder(0, 2, 5, 0));

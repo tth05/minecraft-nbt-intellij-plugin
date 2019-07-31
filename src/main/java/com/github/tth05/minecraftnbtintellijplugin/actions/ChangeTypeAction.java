@@ -20,7 +20,7 @@ public class ChangeTypeAction extends AnAction {
 			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
-			ChooseTypeDialog chooseTypeDialog = new ChooseTypeDialog(e.getProject());
+			ChooseTypeDialog chooseTypeDialog = new ChooseTypeDialog(e.getProject(), selectedNode.getType());
 			boolean exitCode = chooseTypeDialog.showAndGet();
 			if (!exitCode || chooseTypeDialog.getResult() == selectedNode.getType())
 				return;
