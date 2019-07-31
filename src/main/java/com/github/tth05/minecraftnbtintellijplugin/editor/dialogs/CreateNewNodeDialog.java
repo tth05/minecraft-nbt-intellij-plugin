@@ -1,13 +1,14 @@
-package com.github.tth05.minecraftnbtintellijplugin.util;
+package com.github.tth05.minecraftnbtintellijplugin.editor.dialogs;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
+import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.SystemInfo;
-import com.intellij.ui.JBColor;
 import com.intellij.ui.SimpleListCellRenderer;
-import org.jetbrains.annotations.NotNull;
+import com.intellij.ui.components.JBTextField;
+import com.intellij.ui.components.panels.VerticalBox;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.BorderFactory;
@@ -19,20 +20,22 @@ import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-public class ChooseTypeDialog extends DialogWrapper {
+public class CreateNewNodeDialog extends DialogWrapper {
 
 	private final ComboBox<NBTTagType> comboBox;
+	private final String name;
+	private JBTextField textField;
 
-	public ChooseTypeDialog(@Nullable Project project, @NotNull NBTTagType selectedType) {
+	public CreateNewNodeDialog(@Nullable Project project, @Nullable String name) {
 		super(project, true);
-		setTitle("Choose Type");
+		this.name = name;
+		setTitle("Create New");
 
 		if (!SystemInfo.isMac) {
 			setButtonsAlignment(SwingConstants.CENTER);
 		}
 
 		this.comboBox = new ComboBox<>(NBTTagType.values());
-		this.comboBox.setSelectedItem(selectedType);
 		this.comboBox.setRenderer(new SimpleListCellRenderer<NBTTagType>() {
 			@Override
 			public void customize(JList<? extends NBTTagType> list, NBTTagType value, int index, boolean selected,
@@ -41,6 +44,9 @@ public class ChooseTypeDialog extends DialogWrapper {
 				setIcon(value.getIcon());
 			}
 		});
+
+		if (name == null)
+			this.textField = new JBTextField(150);
 
 		init();
 	}
@@ -51,21 +57,41 @@ public class ChooseTypeDialog extends DialogWrapper {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setPreferredSize(new Dimension(330, getPreferredSize().height));
 
-		JLabel label = new JLabel("Choose the new type for this node:");
-		label.setBorder(BorderFactory.createEmptyBorder(0, 2, 5, 0));
+		JLabel typeLabel = new JLabel("Type:");
+		typeLabel.setBorder(BorderFactory.createEmptyBorder(0, 2, 5, 0));
 
-		JLabel warningLabel = new JLabel("All children will be deleted if you change the type of a node!");
-		warningLabel.setForeground(JBColor.ORANGE);
-		warningLabel.setHorizontalAlignment(JLabel.CENTER);
-
-		panel.add(label, BorderLayout.NORTH);
+		panel.add(typeLabel, BorderLayout.NORTH);
 		panel.add(this.comboBox, BorderLayout.CENTER);
-		panel.add(warningLabel, BorderLayout.SOUTH);
+
+		if (name == null) {
+			VerticalBox box = new VerticalBox();
+			JLabel nameLabel = new JLabel("Name:");
+
+			nameLabel.setBorder(BorderFactory.createEmptyBorder(5, 2, 5, 0));
+			box.add(nameLabel);
+			box.add(this.textField);
+			panel.add(box, BorderLayout.SOUTH);
+		}
 
 		return panel;
 	}
 
-	public NBTTagType getResult() {
+	public NBTTagType getType() {
 		return (NBTTagType) this.comboBox.getSelectedItem();
+	}
+
+	public String getName() {
+		return name == null ?
+				this.textField.getText() :
+				name;
+	}
+
+	@Nullable
+	@Override
+	protected ValidationInfo doValidate() {
+		if (this.textField.getText() == null || this.textField.getText().trim().isEmpty())
+			return new ValidationInfo("Invalid name!");
+
+		return null;
 	}
 }

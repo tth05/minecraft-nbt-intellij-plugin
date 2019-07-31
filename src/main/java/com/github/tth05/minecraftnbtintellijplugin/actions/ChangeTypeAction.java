@@ -1,8 +1,8 @@
 package com.github.tth05.minecraftnbtintellijplugin.actions;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
+import com.github.tth05.minecraftnbtintellijplugin.editor.dialogs.ChooseTypeDialog;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
-import com.github.tth05.minecraftnbtintellijplugin.util.ChooseTypeDialog;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
