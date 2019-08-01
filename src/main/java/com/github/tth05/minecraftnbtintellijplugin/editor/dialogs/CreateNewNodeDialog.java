@@ -89,6 +89,9 @@ public class CreateNewNodeDialog extends DialogWrapper {
 	@Nullable
 	@Override
 	protected ValidationInfo doValidate() {
+		if (this.textField == null)
+			return null;
+
 		if (this.textField.getText() == null || this.textField.getText().trim().isEmpty())
 			return new ValidationInfo("Invalid name!");
 

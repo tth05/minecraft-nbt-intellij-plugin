@@ -9,6 +9,8 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.tree.DefaultTreeModel;
+
 public class AddChildAction extends AnAction {
 
 	public AddChildAction() {
@@ -22,6 +24,34 @@ public class AddChildAction extends AnAction {
 			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
+			//Everything except for a compound and a list with no children can only have specific types
+			if (selectedNode.getType() != NBTTagType.COMPOUND &&
+					!(selectedNode.getType() == NBTTagType.LIST && selectedNode.getChildCount() < 1)) {
+				NBTTagType type = null;
+				switch (selectedNode.getType()) {
+					case LIST:
+						type = ((NBTValueTreeNode) selectedNode.getFirstChild()).getType();
+						break;
+					case INT_ARRAY:
+						type = NBTTagType.INT;
+						break;
+					case LONG_ARRAY:
+						type = NBTTagType.LONG;
+						break;
+					case BYTE_ARRAY:
+						type = NBTTagType.BYTE;
+						break;
+				}
+
+				if (type == null)
+					throw new IllegalStateException("Type of child could not be determined!");
+
+				((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
+						new NBTValueTreeNode(type, selectedNode.getChildCount() + "", type.getDefaultValue()),
+						selectedNode, selectedNode.getChildCount());
+				return;
+			}
+
 			CreateNewNodeDialog createNewNodeDialog = new CreateNewNodeDialog(e.getProject(),
 					selectedNode.getType() != NBTTagType.COMPOUND ?
 							selectedNode.getChildCount() + "" :
@@ -30,8 +60,11 @@ public class AddChildAction extends AnAction {
 			if (!exitCode)
 				return;
 
-			selectedNode.add(new NBTValueTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
-					createNewNodeDialog.getType().getDefaultValue()));
+
+			((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
+					new NBTValueTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
+							createNewNodeDialog.getType().getDefaultValue()),
+					selectedNode, selectedNode.getChildCount());
 		}
 	}
 }
