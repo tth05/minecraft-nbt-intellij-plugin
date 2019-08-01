@@ -1,5 +1,7 @@
 package com.github.tth05.minecraftnbtintellijplugin.editor.ui;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
+import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.util.NBTParserUtil;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
@@ -15,12 +17,15 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Enumeration;
 
 public class NBTFileEditorUI extends JPanel implements DataProvider {
 
@@ -33,6 +38,33 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		DefaultMutableTreeNode root = NBTParserUtil.loadNBTFileIntoTree(file);
 
 		TreeModel model = new DefaultTreeModel(root);
+		//The listener updates the indices in the node names if their parent is some sort of list
+		model.addTreeModelListener(new TreeModelListener() {
+			@Override
+			public void treeNodesChanged(TreeModelEvent e) {
+			}
+
+			@Override
+			public void treeNodesInserted(TreeModelEvent e) {
+			}
+
+			@Override
+			public void treeNodesRemoved(TreeModelEvent e) {
+				NBTValueTreeNode parent = (NBTValueTreeNode) e.getTreePath().getLastPathComponent();
+
+				if (parent.getChildCount() > 0 && parent.getType() != NBTTagType.COMPOUND) {
+					Enumeration children = parent.children();
+					for (int i = 0; children.hasMoreElements(); i++) {
+						((NBTValueTreeNode) children.nextElement()).setName(i + "");
+					}
+				}
+			}
+
+			@Override
+			public void treeStructureChanged(TreeModelEvent e) {
+			}
+		});
+
 		this.tree = new Tree(model);
 		this.tree.setCellRenderer(new NBTFileEditorTreeCellRenderer());
 		this.tree.addMouseListener(new MouseAdapter() {
