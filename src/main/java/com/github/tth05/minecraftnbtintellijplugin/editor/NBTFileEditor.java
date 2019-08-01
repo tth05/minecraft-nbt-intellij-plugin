@@ -127,5 +127,4 @@ public class NBTFileEditor implements FileEditor {
 	public <T> void putUserData(@NotNull Key<T> key, @Nullable T value) {
 
 	}
-
 }

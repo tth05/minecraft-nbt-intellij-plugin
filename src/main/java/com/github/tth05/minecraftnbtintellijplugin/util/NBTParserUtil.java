@@ -46,7 +46,6 @@ public class NBTParserUtil {
 		try {
 			data = uncompress(file.contentsToByteArray(), file);
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 

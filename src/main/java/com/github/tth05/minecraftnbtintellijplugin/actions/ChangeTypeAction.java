@@ -7,6 +7,10 @@ import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.tree.DefaultTreeModel;
+import java.util.Enumeration;
+import java.util.stream.IntStream;
+
 public class ChangeTypeAction extends AnAction {
 
 	public ChangeTypeAction() {
@@ -25,7 +29,17 @@ public class ChangeTypeAction extends AnAction {
 			if (!exitCode || chooseTypeDialog.getResult() == selectedNode.getType())
 				return;
 
+			int[] childIndices = IntStream.range(0, selectedNode.getChildCount()).toArray();
+			Object[] children = new Object[selectedNode.getChildCount()];
+			Enumeration enumeration = selectedNode.children();
+			for (int i = 0; enumeration.hasMoreElements(); i++) {
+				children[i] = enumeration.nextElement();
+			}
+
+
 			selectedNode.removeAllChildren();
+			((DefaultTreeModel) nbtFileEditorUI.getTree().getModel())
+					.nodesWereRemoved(selectedNode, childIndices, children);
 			selectedNode.setType(chooseTypeDialog.getResult());
 		}
 	}

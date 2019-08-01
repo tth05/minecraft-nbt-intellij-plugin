@@ -21,6 +21,11 @@
     <actions>
         <action id="com.github.tth05.minecraftnbtintellijplugin.actions.RenameAction"
                 class="com.github.tth05.minecraftnbtintellijplugin.actions.RenameAction"/>
+        <action id="com.github.tth05.minecraftnbtintellijplugin.actions.CreateNBTFileAction"
+                class="com.github.tth05.minecraftnbtintellijplugin.actions.CreateNBTFileAction" text="NBT File"
+                description="Create a new NBT file">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </action>
         <group id="com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"
                class="com.github.tth05.minecraftnbtintellijplugin.actions.NBTFileEditorPopupGroup"
                popup="true">
