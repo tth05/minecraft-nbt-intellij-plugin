@@ -27,6 +27,9 @@ public class CreateNBTFileAction extends CreateFileFromTemplateAction {
 
 	@Override
 	protected PsiFile createFile(String name, String templateName, PsiDirectory dir) {
+		//File templates didn't work for this because Intellij change the bytes of the template and also adds a few
+		// bytes when copying it over, which makes the file not follow the NBT format anymore
+
 		PsiFile file = dir.createFile(name + ".nbt");
 		try {
 			//The bytes represent a root component without a name followed by an END tag, in a compressed format

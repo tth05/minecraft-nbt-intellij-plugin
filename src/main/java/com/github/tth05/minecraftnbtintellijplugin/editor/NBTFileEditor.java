@@ -34,7 +34,7 @@ public class NBTFileEditor implements FileEditor {
 	@Nullable
 	@Override
 	public JComponent getPreferredFocusedComponent() {
-		return null;
+		return this.component.getTree();
 	}
 
 	@NotNull
@@ -114,7 +114,6 @@ public class NBTFileEditor implements FileEditor {
 
 	@Override
 	public void dispose() {
-
 	}
 
 	@Nullable

@@ -15,6 +15,7 @@ import java.nio.channels.Channels;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.ZipException;
 
+// https://minecraft.gamepedia.com/NBT_format
 public class NBTParserUtil {
 
 	private static ByteBuffer uncompress(byte[] input, VirtualFile file) throws IOException {
