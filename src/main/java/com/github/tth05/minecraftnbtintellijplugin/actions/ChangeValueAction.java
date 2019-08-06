@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class ChangeValueAction extends AnAction {
 
 	public ChangeValueAction() {
-		super("Change Value", "Change the value of this node", AllIcons.Actions.Edit);
+		super("Change Value", "Change the value of this node", AllIcons.General.Settings);
 	}
 
 	@Override

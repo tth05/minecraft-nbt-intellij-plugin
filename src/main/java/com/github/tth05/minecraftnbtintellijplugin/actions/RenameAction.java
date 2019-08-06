@@ -2,6 +2,7 @@ package com.github.tth05.minecraftnbtintellijplugin.actions;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.InputValidator;
@@ -11,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class RenameAction extends AnAction {
 
 	public RenameAction() {
-		super("Rename", "Rename", null);
+		super("Rename", "Rename", AllIcons.Actions.Edit);
 	}
 
 	@Override

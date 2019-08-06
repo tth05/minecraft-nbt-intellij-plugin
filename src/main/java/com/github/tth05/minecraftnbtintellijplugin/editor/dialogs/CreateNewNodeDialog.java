@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+//TODO: Fix weird bug where error makes the Name JTextField invisible
 public class CreateNewNodeDialog extends DialogWrapper {
 
 	private final ComboBox<NBTTagType> comboBox;
@@ -57,22 +58,23 @@ public class CreateNewNodeDialog extends DialogWrapper {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.setPreferredSize(new Dimension(330, getPreferredSize().height));
 
+		VerticalBox box = new VerticalBox();
+
 		JLabel typeLabel = new JLabel("Type:");
 		typeLabel.setBorder(BorderFactory.createEmptyBorder(0, 2, 5, 0));
 
-		panel.add(typeLabel, BorderLayout.NORTH);
-		panel.add(this.comboBox, BorderLayout.CENTER);
+		box.add(typeLabel);
+		box.add(this.comboBox);
 
 		if (name == null) {
-			VerticalBox box = new VerticalBox();
 			JLabel nameLabel = new JLabel("Name:");
 
 			nameLabel.setBorder(BorderFactory.createEmptyBorder(5, 2, 5, 0));
 			box.add(nameLabel);
 			box.add(this.textField);
-			panel.add(box, BorderLayout.SOUTH);
 		}
 
+		panel.add(box, BorderLayout.CENTER);
 		return panel;
 	}
 
