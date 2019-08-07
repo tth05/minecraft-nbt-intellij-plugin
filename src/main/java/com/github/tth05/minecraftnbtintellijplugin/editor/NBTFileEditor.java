@@ -35,7 +35,7 @@ public class NBTFileEditor implements FileEditor {
 	@Nullable
 	@Override
 	public JComponent getPreferredFocusedComponent() {
-		return this.component.getTree();
+		return null;
 	}
 
 	@NotNull
@@ -46,7 +46,7 @@ public class NBTFileEditor implements FileEditor {
 
 	@Override
 	public void setState(@NotNull FileEditorState state) {
-		if (!(state instanceof NBTFileEditorState))
+		if (!(state instanceof NBTFileEditorState) || this.component.getTree() == null)
 			return;
 		NBTFileEditorState editorState = (NBTFileEditorState) state;
 		for (int i = 0; i < this.component.getTree().getRowCount(); i++) {
@@ -60,6 +60,9 @@ public class NBTFileEditor implements FileEditor {
 	@NotNull
 	@Override
 	public FileEditorState getState(@NotNull FileEditorStateLevel level) {
+		if (this.component.getTree() == null)
+			return new NBTFileEditorState(new ArrayList<>());
+
 		List<String> expanded = new ArrayList<>();
 		for (int i = 0; i < this.component.getTree().getRowCount(); i++) {
 			TreePath currPath = this.component.getTree().getPathForRow(i);

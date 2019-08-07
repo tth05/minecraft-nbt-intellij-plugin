@@ -12,7 +12,9 @@ import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBCheckBox;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
@@ -37,7 +40,7 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 
 	public static final DataKey<NBTFileEditorUI> DATA_KEY = DataKey.create(NBTFileEditorUI.class.getName());
 
-	private final Tree tree;
+	private Tree tree;
 
 	private boolean autoSaveEnabled = true;
 
@@ -64,6 +67,13 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 
 		//Tree Section
 		DefaultMutableTreeNode root = NBTFileUtil.loadNBTFileIntoTree(file);
+		if (root == null) {
+			JBLabel errorText = new JBLabel("Invalid NBT File!");
+			errorText.setForeground(JBColor.RED);
+			errorText.setHorizontalAlignment(SwingConstants.CENTER);
+			this.add(errorText, BorderLayout.CENTER);
+			return;
+		}
 
 		TreeModel model = new DefaultTreeModel(root);
 		//The listener updates the indices in the node names if their parent is some sort of list
@@ -118,7 +128,6 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		this.add(new JBScrollPane(this.tree), BorderLayout.CENTER);
 	}
 
-	@NotNull
 	public Tree getTree() {
 		return this.tree;
 	}

@@ -7,13 +7,13 @@ import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.ValidationInfo;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.ui.SimpleListCellRenderer;
+import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.ui.components.panels.VerticalBox;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -60,14 +60,14 @@ public class CreateNewNodeDialog extends DialogWrapper {
 
 		VerticalBox box = new VerticalBox();
 
-		JLabel typeLabel = new JLabel("Type:");
+		JBLabel typeLabel = new JBLabel("Type:");
 		typeLabel.setBorder(BorderFactory.createEmptyBorder(0, 2, 5, 0));
 
 		box.add(typeLabel);
 		box.add(this.comboBox);
 
 		if (name == null) {
-			JLabel nameLabel = new JLabel("Name:");
+			JBLabel nameLabel = new JBLabel("Name:");
 
 			nameLabel.setBorder(BorderFactory.createEmptyBorder(5, 2, 5, 0));
 			box.add(nameLabel);

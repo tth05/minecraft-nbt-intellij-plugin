@@ -120,7 +120,6 @@ public class NBTFileUtil {
 			loadNBTDataOfCompound(root, data);
 			return root;
 		} catch (IOException e) {
-			e.printStackTrace();
 			return null;
 		}
 	}
