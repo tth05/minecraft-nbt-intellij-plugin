@@ -52,7 +52,7 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		JButton saveButton = new JButton("Save", AllIcons.Actions.Menu_saveall);
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) {
 				System.out.println("Save clicked");
 				NBTFileUtil.saveTreeToFile(NBTFileEditorUI.this.tree, file, project);
 			}
