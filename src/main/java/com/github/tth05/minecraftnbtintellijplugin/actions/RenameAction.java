@@ -2,6 +2,7 @@ package com.github.tth05.minecraftnbtintellijplugin.actions;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
+import com.github.tth05.minecraftnbtintellijplugin.util.NBTFileUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -37,6 +38,7 @@ public class RenameAction extends AnAction {
 			if (inputString != null) {
 				selectedNode.setName(inputString);
 				nbtFileEditorUI.repaint();
+				NBTFileUtil.saveTree(e);
 			}
 		}
 	}

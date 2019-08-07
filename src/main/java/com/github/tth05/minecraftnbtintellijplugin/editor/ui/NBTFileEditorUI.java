@@ -53,7 +53,6 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				System.out.println("Save clicked");
 				NBTFileUtil.saveTreeToFile(NBTFileEditorUI.this.tree, file, project);
 			}
 		});
@@ -92,9 +91,8 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 
 				if (parent.getChildCount() > 0 && parent.getType() != NBTTagType.COMPOUND) {
 					Enumeration children = parent.children();
-					for (int i = 0; children.hasMoreElements(); i++) {
+					for (int i = 0; children.hasMoreElements(); i++)
 						((NBTTagTreeNode) children.nextElement()).setName(i + "");
-					}
 				}
 			}
 
@@ -138,5 +136,9 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		if (DATA_KEY.is(dataId))
 			return this;
 		return null;
+	}
+
+	public boolean isAutoSaveEnabled() {
+		return autoSaveEnabled;
 	}
 }

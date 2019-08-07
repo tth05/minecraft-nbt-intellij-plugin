@@ -2,8 +2,11 @@ package com.github.tth05.minecraftnbtintellijplugin.util;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
+import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -22,6 +25,24 @@ import java.util.zip.ZipException;
 
 // https://minecraft.gamepedia.com/NBT_format
 public class NBTFileUtil {
+
+	public static void saveTree(AnActionEvent event) {
+		NBTFileEditorUI nbtFileEditorUI = event.getData(NBTFileEditorUI.DATA_KEY);
+		Project project = event.getProject();
+		VirtualFile file = event.getData(CommonDataKeys.VIRTUAL_FILE);
+		if (nbtFileEditorUI == null || nbtFileEditorUI.getTree() == null || file == null) {
+			new Notification("NBTSaveError",
+					"Error Saving NBT File",
+					"Due to an unknown error the file could not be saved.",
+					NotificationType.WARNING).notify(project);
+			return;
+		}
+
+		if (!nbtFileEditorUI.isAutoSaveEnabled())
+			return;
+
+		saveTreeToFile(nbtFileEditorUI.getTree(), file, project);
+	}
 
 	public static void saveTreeToFile(Tree tree, VirtualFile file, Project project) {
 		ApplicationManager.getApplication().runWriteAction(() -> {

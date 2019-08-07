@@ -3,6 +3,7 @@ package com.github.tth05.minecraftnbtintellijplugin.actions;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.dialogs.ChooseTypeDialog;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
+import com.github.tth05.minecraftnbtintellijplugin.util.NBTFileUtil;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +42,7 @@ public class ChangeTypeAction extends AnAction {
 			((DefaultTreeModel) nbtFileEditorUI.getTree().getModel())
 					.nodesWereRemoved(selectedNode, childIndices, children);
 			selectedNode.setType(chooseTypeDialog.getResult());
+			NBTFileUtil.saveTree(e);
 		}
 	}
 }

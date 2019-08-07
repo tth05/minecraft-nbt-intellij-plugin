@@ -4,6 +4,7 @@ import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
 import com.github.tth05.minecraftnbtintellijplugin.editor.dialogs.CreateNewNodeDialog;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
+import com.github.tth05.minecraftnbtintellijplugin.util.NBTFileUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -49,6 +50,7 @@ public class AddChildAction extends AnAction {
 				((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
 						new NBTTagTreeNode(type, selectedNode.getChildCount() + "", type.getDefaultValue()),
 						selectedNode, selectedNode.getChildCount());
+				NBTFileUtil.saveTree(e);
 				return;
 			}
 
@@ -65,6 +67,7 @@ public class AddChildAction extends AnAction {
 					new NBTTagTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
 							createNewNodeDialog.getType().getDefaultValue()),
 					selectedNode, selectedNode.getChildCount());
+			NBTFileUtil.saveTree(e);
 		}
 	}
 }
