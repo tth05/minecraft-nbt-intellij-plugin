@@ -26,6 +26,12 @@ import java.util.zip.ZipException;
 // https://minecraft.gamepedia.com/NBT_format
 public class NBTFileUtil {
 
+	/**
+	 * Uses the event to get the current project and file and then calls {@link #saveTreeToFile(Tree, VirtualFile, Project)}
+	 * This method is only used for auto-saving and only called by actions
+	 *
+	 * @param event The event
+	 */
 	public static void saveTree(AnActionEvent event) {
 		NBTFileEditorUI nbtFileEditorUI = event.getData(NBTFileEditorUI.DATA_KEY);
 		Project project = event.getProject();
@@ -44,6 +50,12 @@ public class NBTFileUtil {
 		saveTreeToFile(nbtFileEditorUI.getTree(), file, project);
 	}
 
+	/**
+	 * Serializes the given tree and writes the bytes to the file. If the saving failed, a notification will be shown.
+	 * @param tree The tree to be serialized
+	 * @param file The file to write the bytes to
+	 * @param project The current project to show the notification in
+	 */
 	public static void saveTreeToFile(Tree tree, VirtualFile file, Project project) {
 		ApplicationManager.getApplication().runWriteAction(() -> {
 			try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(file.getOutputStream(tree));
