@@ -1,7 +1,7 @@
 package com.github.tth05.minecraftnbtintellijplugin.editor.ui;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.util.NBTFileUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.ActionGroup;
@@ -88,12 +88,12 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 
 			@Override
 			public void treeNodesRemoved(TreeModelEvent e) {
-				NBTValueTreeNode parent = (NBTValueTreeNode) e.getTreePath().getLastPathComponent();
+				NBTTagTreeNode parent = (NBTTagTreeNode) e.getTreePath().getLastPathComponent();
 
 				if (parent.getChildCount() > 0 && parent.getType() != NBTTagType.COMPOUND) {
 					Enumeration children = parent.children();
 					for (int i = 0; children.hasMoreElements(); i++) {
-						((NBTValueTreeNode) children.nextElement()).setName(i + "");
+						((NBTTagTreeNode) children.nextElement()).setName(i + "");
 					}
 				}
 			}

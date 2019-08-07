@@ -4,7 +4,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-public class NBTValueTreeNode extends DefaultMutableTreeNode {
+public class NBTTagTreeNode extends DefaultMutableTreeNode {
 
 	private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat();
 	static {
@@ -18,7 +18,7 @@ public class NBTValueTreeNode extends DefaultMutableTreeNode {
 	private String name;
 	private Object value;
 
-	public NBTValueTreeNode(NBTTagType type, String name, Object value) {
+	public NBTTagTreeNode(NBTTagType type, String name, Object value) {
 		super();
 		this.type = type;
 		this.name = name;

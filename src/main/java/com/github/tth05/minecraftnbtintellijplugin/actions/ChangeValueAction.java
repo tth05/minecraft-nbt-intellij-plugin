@@ -1,6 +1,6 @@
 package com.github.tth05.minecraftnbtintellijplugin.actions;
 
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -19,7 +19,7 @@ public class ChangeValueAction extends AnAction {
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		NBTFileEditorUI nbtFileEditorUI = e.getData(NBTFileEditorUI.DATA_KEY);
 		if (nbtFileEditorUI != null) {
-			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
+			NBTTagTreeNode selectedNode = ((NBTTagTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
 			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null,

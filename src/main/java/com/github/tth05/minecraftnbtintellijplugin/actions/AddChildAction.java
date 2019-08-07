@@ -1,7 +1,7 @@
 package com.github.tth05.minecraftnbtintellijplugin.actions;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.dialogs.CreateNewNodeDialog;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
 import com.intellij.icons.AllIcons;
@@ -21,7 +21,7 @@ public class AddChildAction extends AnAction {
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		NBTFileEditorUI nbtFileEditorUI = e.getData(NBTFileEditorUI.DATA_KEY);
 		if (nbtFileEditorUI != null) {
-			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
+			NBTTagTreeNode selectedNode = ((NBTTagTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
 			//Everything except for a compound and a list with no children can only have specific types
@@ -30,7 +30,7 @@ public class AddChildAction extends AnAction {
 				NBTTagType type = null;
 				switch (selectedNode.getType()) {
 					case LIST:
-						type = ((NBTValueTreeNode) selectedNode.getFirstChild()).getType();
+						type = ((NBTTagTreeNode) selectedNode.getFirstChild()).getType();
 						break;
 					case INT_ARRAY:
 						type = NBTTagType.INT;
@@ -47,7 +47,7 @@ public class AddChildAction extends AnAction {
 					throw new IllegalStateException("Type of child could not be determined!");
 
 				((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
-						new NBTValueTreeNode(type, selectedNode.getChildCount() + "", type.getDefaultValue()),
+						new NBTTagTreeNode(type, selectedNode.getChildCount() + "", type.getDefaultValue()),
 						selectedNode, selectedNode.getChildCount());
 				return;
 			}
@@ -62,7 +62,7 @@ public class AddChildAction extends AnAction {
 
 
 			((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
-					new NBTValueTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
+					new NBTTagTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
 							createNewNodeDialog.getType().getDefaultValue()),
 					selectedNode, selectedNode.getChildCount());
 		}

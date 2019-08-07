@@ -1,6 +1,6 @@
 package com.github.tth05.minecraftnbtintellijplugin.actions;
 
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.dialogs.ChooseTypeDialog;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -21,7 +21,7 @@ public class ChangeTypeAction extends AnAction {
 	public void actionPerformed(@NotNull AnActionEvent e) {
 		NBTFileEditorUI nbtFileEditorUI = e.getData(NBTFileEditorUI.DATA_KEY);
 		if (nbtFileEditorUI != null) {
-			NBTValueTreeNode selectedNode = ((NBTValueTreeNode) nbtFileEditorUI.getTree()
+			NBTTagTreeNode selectedNode = ((NBTTagTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
 			ChooseTypeDialog chooseTypeDialog = new ChooseTypeDialog(e.getProject(), selectedNode.getType());

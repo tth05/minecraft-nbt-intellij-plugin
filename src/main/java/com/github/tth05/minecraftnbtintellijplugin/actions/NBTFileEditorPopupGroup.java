@@ -1,7 +1,7 @@
 package com.github.tth05.minecraftnbtintellijplugin.actions;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.editor.ui.NBTFileEditorUI;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.AnAction;
@@ -27,8 +27,8 @@ public class NBTFileEditorPopupGroup extends ActionGroup {
 				return new AnAction[] {new DeleteAction()};
 
 			List<AnAction> actions = new ArrayList<>();
-			NBTValueTreeNode node = (NBTValueTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent();
-			NBTValueTreeNode parent = (NBTValueTreeNode) node.getParent();
+			NBTTagTreeNode node = (NBTTagTreeNode) nbtFileEditorUI.getTree().getLastSelectedPathComponent();
+			NBTTagTreeNode parent = (NBTTagTreeNode) node.getParent();
 
 			if (parent == null)
 				return new AnAction[] {new RenameAction(), new Separator(), new AddChildAction()};

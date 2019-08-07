@@ -1,7 +1,7 @@
 package com.github.tth05.minecraftnbtintellijplugin.util;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTTagTreeNode;
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
-import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
 import com.intellij.notification.Notification;
 import com.intellij.notification.NotificationType;
 import com.intellij.openapi.application.ApplicationManager;
@@ -28,7 +28,7 @@ public class NBTFileUtil {
 			try (GZIPOutputStream gzipOutputStream = new GZIPOutputStream(file.getOutputStream(tree));
 			     DataOutputStream outputStream = new DataOutputStream(gzipOutputStream)) {
 
-				writeNodeToStream((NBTValueTreeNode) tree.getModel().getRoot(), outputStream, true);
+				writeNodeToStream((NBTTagTreeNode) tree.getModel().getRoot(), outputStream, true);
 			} catch (IOException ex) {
 				new Notification("NBTSaveError",
 						"Error Saving NBT File",
@@ -38,7 +38,7 @@ public class NBTFileUtil {
 		});
 	}
 
-	private static void writeNodeToStream(NBTValueTreeNode node,
+	private static void writeNodeToStream(NBTTagTreeNode node,
 	                                      DataOutputStream stream,
 	                                      boolean writeName) throws IOException {
 		if (writeName) {
@@ -68,7 +68,7 @@ public class NBTFileUtil {
 				stream.writeInt(node.getChildCount());
 				Enumeration byteArrayChildren = node.children();
 				while (byteArrayChildren.hasMoreElements()) {
-					NBTValueTreeNode child = (NBTValueTreeNode) byteArrayChildren.nextElement();
+					NBTTagTreeNode child = (NBTTagTreeNode) byteArrayChildren.nextElement();
 					stream.writeByte((Byte) (child).getValue());
 				}
 				break;
@@ -77,31 +77,31 @@ public class NBTFileUtil {
 				break;
 			case LIST:
 				if (node.getChildCount() > 0)
-					stream.writeByte(((NBTValueTreeNode) node.getFirstChild()).getType().getId());
+					stream.writeByte(((NBTTagTreeNode) node.getFirstChild()).getType().getId());
 				else
 					stream.writeByte(0);
 				stream.writeInt(node.getChildCount());
 				Enumeration listChildren = node.children();
 				while (listChildren.hasMoreElements())
-					writeNodeToStream((NBTValueTreeNode) listChildren.nextElement(), stream, false);
+					writeNodeToStream((NBTTagTreeNode) listChildren.nextElement(), stream, false);
 				break;
 			case COMPOUND:
 				Enumeration compoundChildren = node.children();
 				while (compoundChildren.hasMoreElements())
-					writeNodeToStream((NBTValueTreeNode) compoundChildren.nextElement(), stream, true);
+					writeNodeToStream((NBTTagTreeNode) compoundChildren.nextElement(), stream, true);
 				stream.writeByte(0);
 				break;
 			case INT_ARRAY:
 				stream.writeInt(node.getChildCount());
 				Enumeration intArrayChildren = node.children();
 				while (intArrayChildren.hasMoreElements())
-					stream.writeInt((Integer) ((NBTValueTreeNode) intArrayChildren.nextElement()).getValue());
+					stream.writeInt((Integer) ((NBTTagTreeNode) intArrayChildren.nextElement()).getValue());
 				break;
 			case LONG_ARRAY:
 				stream.writeInt(node.getChildCount());
 				Enumeration longArrayChildren = node.children();
 				while (longArrayChildren.hasMoreElements())
-					stream.writeLong((Long) ((NBTValueTreeNode) longArrayChildren.nextElement()).getValue());
+					stream.writeLong((Long) ((NBTTagTreeNode) longArrayChildren.nextElement()).getValue());
 				break;
 		}
 	}
@@ -116,7 +116,7 @@ public class NBTFileUtil {
 			if (type != 10)
 				return null;
 
-			NBTValueTreeNode root = new NBTValueTreeNode(NBTTagType.COMPOUND, data.readUTF(), null);
+			NBTTagTreeNode root = new NBTTagTreeNode(NBTTagType.COMPOUND, data.readUTF(), null);
 			loadNBTDataOfCompound(root, data);
 			return root;
 		} catch (IOException e) {
@@ -136,48 +136,48 @@ public class NBTFileUtil {
 		}
 	}
 
-	private static NBTValueTreeNode createNode(byte type, String name, DataInputStream data) throws IOException {
+	private static NBTTagTreeNode createNode(byte type, String name, DataInputStream data) throws IOException {
 		switch (type) {
 			case 1:
-				return new NBTValueTreeNode(NBTTagType.BYTE, name, data.readByte());
+				return new NBTTagTreeNode(NBTTagType.BYTE, name, data.readByte());
 			case 2:
-				return new NBTValueTreeNode(NBTTagType.SHORT, name, data.readShort());
+				return new NBTTagTreeNode(NBTTagType.SHORT, name, data.readShort());
 			case 3:
-				return new NBTValueTreeNode(NBTTagType.INT, name, data.readInt());
+				return new NBTTagTreeNode(NBTTagType.INT, name, data.readInt());
 			case 4:
-				return new NBTValueTreeNode(NBTTagType.LONG, name, data.readLong());
+				return new NBTTagTreeNode(NBTTagType.LONG, name, data.readLong());
 			case 5:
-				return new NBTValueTreeNode(NBTTagType.FLOAT, name, data.readFloat());
+				return new NBTTagTreeNode(NBTTagType.FLOAT, name, data.readFloat());
 			case 6:
-				return new NBTValueTreeNode(NBTTagType.DOUBLE, name, data.readDouble());
+				return new NBTTagTreeNode(NBTTagType.DOUBLE, name, data.readDouble());
 			case 7:
 				int byteArraySize = data.readInt();
-				NBTValueTreeNode byteArrayNode = new NBTValueTreeNode(NBTTagType.BYTE_ARRAY, name, byteArraySize);
+				NBTTagTreeNode byteArrayNode = new NBTTagTreeNode(NBTTagType.BYTE_ARRAY, name, byteArraySize);
 				for (int i = 0; i < byteArraySize; i++)
 					byteArrayNode.add(createNode((byte) 1, i + "", data));
 				return byteArrayNode;
 			case 8:
-				return new NBTValueTreeNode(NBTTagType.STRING, name, data.readUTF());
+				return new NBTTagTreeNode(NBTTagType.STRING, name, data.readUTF());
 			case 9:
 				byte listType = data.readByte();
 				int listSize = data.readInt();
-				NBTValueTreeNode listNode = new NBTValueTreeNode(NBTTagType.LIST, name, listSize);
+				NBTTagTreeNode listNode = new NBTTagTreeNode(NBTTagType.LIST, name, listSize);
 				for (int i = 0; i < listSize; i++)
 					listNode.add(createNode(listType, i + "", data));
 				return listNode;
 			case 10:
-				NBTValueTreeNode compoundNode = new NBTValueTreeNode(NBTTagType.COMPOUND, name, null);
+				NBTTagTreeNode compoundNode = new NBTTagTreeNode(NBTTagType.COMPOUND, name, null);
 				loadNBTDataOfCompound(compoundNode, data);
 				return compoundNode;
 			case 11:
 				int intArraySize = data.readInt();
-				NBTValueTreeNode intArrayNode = new NBTValueTreeNode(NBTTagType.INT_ARRAY, name, intArraySize);
+				NBTTagTreeNode intArrayNode = new NBTTagTreeNode(NBTTagType.INT_ARRAY, name, intArraySize);
 				for (int i = 0; i < intArraySize; i++)
 					intArrayNode.add(createNode((byte) 3, i + "", data));
 				return intArrayNode;
 			case 12:
 				int longArraySize = data.readInt();
-				NBTValueTreeNode longArrayNode = new NBTValueTreeNode(NBTTagType.LONG_ARRAY, name, longArraySize);
+				NBTTagTreeNode longArrayNode = new NBTTagTreeNode(NBTTagType.LONG_ARRAY, name, longArraySize);
 				for (int i = 0; i < longArraySize; i++)
 					longArrayNode.add(createNode((byte) 4, i + "", data));
 				return longArrayNode;
