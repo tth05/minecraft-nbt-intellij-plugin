@@ -2,19 +2,23 @@ package com.github.tth05.minecraftnbtintellijplugin.editor.ui;
 
 import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
 import com.github.tth05.minecraftnbtintellijplugin.NBTValueTreeNode;
-import com.github.tth05.minecraftnbtintellijplugin.util.NBTParserUtil;
+import com.github.tth05.minecraftnbtintellijplugin.util.NBTFileUtil;
+import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.ActionManager;
 import com.intellij.openapi.actionSystem.ActionPlaces;
 import com.intellij.openapi.actionSystem.ActionPopupMenu;
 import com.intellij.openapi.actionSystem.DataKey;
 import com.intellij.openapi.actionSystem.DataProvider;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TreeModelEvent;
@@ -23,19 +27,43 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 
 public class NBTFileEditorUI extends JPanel implements DataProvider {
 
-	private final Tree tree;
 	public static final DataKey<NBTFileEditorUI> DATA_KEY = DataKey.create(NBTFileEditorUI.class.getName());
 
-	public NBTFileEditorUI(@NotNull VirtualFile file) {
+	private final Tree tree;
+
+	private boolean autoSaveEnabled = true;
+
+	public NBTFileEditorUI(@NotNull VirtualFile file, @NotNull Project project) {
 		this.setLayout(new BorderLayout());
 
-		DefaultMutableTreeNode root = NBTParserUtil.loadNBTFileIntoTree(file);
+		//Toolbar
+		JPanel northSection = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JButton saveButton = new JButton("Save", AllIcons.Actions.Menu_saveall);
+		saveButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Save clicked");
+				NBTFileUtil.saveTreeToFile(NBTFileEditorUI.this.tree, file, project);
+			}
+		});
+
+		JBCheckBox autoSaveCheckbox = new JBCheckBox("Save On Change");
+		autoSaveCheckbox.setSelected(true);
+		autoSaveCheckbox.addItemListener(e -> autoSaveEnabled = e.getStateChange() == ItemEvent.SELECTED);
+
+		northSection.add(saveButton);
+		northSection.add(autoSaveCheckbox);
+
+		//Tree Section
+		DefaultMutableTreeNode root = NBTFileUtil.loadNBTFileIntoTree(file);
 
 		TreeModel model = new DefaultTreeModel(root);
 		//The listener updates the indices in the node names if their parent is some sort of list
@@ -86,9 +114,8 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 			}
 		});
 
-		JBScrollPane scrollPane = new JBScrollPane(this.tree);
-
-		this.add(scrollPane);
+		this.add(northSection, BorderLayout.NORTH);
+		this.add(new JBScrollPane(this.tree), BorderLayout.CENTER);
 	}
 
 	@NotNull

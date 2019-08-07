@@ -24,7 +24,7 @@ public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 	@NotNull
 	@Override
 	public FileEditor createEditor(@NotNull Project project, @NotNull VirtualFile file) {
-		return new NBTFileEditor(file);
+		return new NBTFileEditor(file, project);
 	}
 
 	@NotNull
