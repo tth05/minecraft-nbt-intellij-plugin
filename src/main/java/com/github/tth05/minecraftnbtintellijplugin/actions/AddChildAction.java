@@ -11,6 +11,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class AddChildAction extends AnAction {
 
@@ -50,6 +51,7 @@ public class AddChildAction extends AnAction {
 				((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
 						new NBTTagTreeNode(type, selectedNode.getChildCount() + "", type.getDefaultValue()),
 						selectedNode, selectedNode.getChildCount());
+				nbtFileEditorUI.getTree().expandPath(new TreePath(selectedNode.getPath()));
 				NBTFileUtil.saveTree(e);
 				return;
 			}
@@ -64,9 +66,14 @@ public class AddChildAction extends AnAction {
 
 
 			((DefaultTreeModel) nbtFileEditorUI.getTree().getModel()).insertNodeInto(
-					new NBTTagTreeNode(createNewNodeDialog.getType(), createNewNodeDialog.getName(),
-							createNewNodeDialog.getType().getDefaultValue()),
-					selectedNode, selectedNode.getChildCount());
+					new NBTTagTreeNode(createNewNodeDialog.getType(),
+							createNewNodeDialog.getName(),
+							createNewNodeDialog.getType().getDefaultValue()
+					),
+					selectedNode,
+					selectedNode.getChildCount()
+			);
+			nbtFileEditorUI.getTree().expandPath(new TreePath(selectedNode.getPath()));
 			NBTFileUtil.saveTree(e);
 		}
 	}

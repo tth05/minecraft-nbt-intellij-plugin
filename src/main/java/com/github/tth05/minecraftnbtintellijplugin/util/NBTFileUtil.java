@@ -36,6 +36,7 @@ public class NBTFileUtil {
 		NBTFileEditorUI nbtFileEditorUI = event.getData(NBTFileEditorUI.DATA_KEY);
 		Project project = event.getProject();
 		VirtualFile file = event.getData(CommonDataKeys.VIRTUAL_FILE);
+
 		if (nbtFileEditorUI == null || nbtFileEditorUI.getTree() == null || file == null) {
 			new Notification("NBTSaveError",
 					"Error Saving NBT File",
@@ -141,7 +142,7 @@ public class NBTFileUtil {
 
 	@Nullable
 	public static DefaultMutableTreeNode loadNBTFileIntoTree(VirtualFile file) {
-		try (DataInputStream data = uncompress(file.getInputStream(), file)) {
+		try (DataInputStream data = uncompress(file.getInputStream())) {
 			//Get tag id
 			byte type = data.readByte();
 
@@ -219,7 +220,7 @@ public class NBTFileUtil {
 		}
 	}
 
-	private static DataInputStream uncompress(InputStream input, VirtualFile file) throws IOException {
+	private static DataInputStream uncompress(InputStream input) throws IOException {
 		try {
 			final GZIPInputStream inputGzipStream = new GZIPInputStream(input);
 			return new DataInputStream(inputGzipStream);
