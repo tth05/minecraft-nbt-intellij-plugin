@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.github.tth05'
-version '1.1'
+version '1.2'
 
 sourceCompatibility = 1.8
 
@@ -22,6 +22,6 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      <p>- Nodes now automatically expand when a child is added.</p>
+      <p>- Added plugin icon.</p>
     """
 }
