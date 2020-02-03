@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.github.tth05'
-version '1.2'
+version '1.3'
 
 sourceCompatibility = 1.8
 
@@ -22,6 +22,9 @@ intellij {
 }
 patchPluginXml {
     changeNotes """
-      <p>- Added plugin icon.</p>
+      <p>
+      - Update to new Intellij version
+      - Quotes are now removed when changing the value of a string
+      </p>
     """
 }
