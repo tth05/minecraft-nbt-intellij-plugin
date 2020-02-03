@@ -23,7 +23,7 @@ intellij {
 patchPluginXml {
     changeNotes """
       <p>
-      - Update to new Intellij version
+      - Update to new Intellij version<br>
       - Quotes are now removed when changing the value of a string
       </p>
     """
