@@ -23,8 +23,12 @@ public class ChangeValueAction extends AnAction {
 			NBTTagTreeNode selectedNode = ((NBTTagTreeNode) nbtFileEditorUI.getTree()
 					.getLastSelectedPathComponent());
 
+			String currentValue = selectedNode.getValueAsString();
+			if(currentValue != null && currentValue.startsWith("\"") && currentValue.endsWith("\""))
+				currentValue = currentValue.substring(1, currentValue.length() - 1);
+
 			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null,
-					selectedNode.getValueAsString(), new InputValidator() {
+					currentValue, new InputValidator() {
 						@Override
 						public boolean checkInput(String inputString) {
 							return selectedNode.getType().getValueValidator().apply(inputString);
