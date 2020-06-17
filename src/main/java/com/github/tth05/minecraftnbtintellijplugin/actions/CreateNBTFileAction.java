@@ -16,18 +16,18 @@ public class CreateNBTFileAction extends CreateFileFromTemplateAction {
 	}
 
 	@Override
-	protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
-		builder.setTitle("Create NBT File").addKind("NBT File", NBTTagType.COMPOUND.getIcon(), "NBT File");
+	protected void buildDialog(@NotNull Project project, @NotNull PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
+		builder.setTitle("Create NBT File").addKind("NBT file", NBTTagType.COMPOUND.getIcon(), "NBT File");
 	}
 
 	@Override
 	protected String getActionName(PsiDirectory directory, @NotNull String newName, String templateName) {
-		return "NBT File";
+		return "NBT File YEET";
 	}
 
 	@Override
 	protected PsiFile createFile(String name, String templateName, PsiDirectory dir) {
-		//File templates didn't work for this because Intellij change the bytes of the template and also adds a few
+		//File templates didn't work for this because Intellij changes the bytes of the template and also adds a few
 		// bytes when copying it over, which makes the file not follow the NBT format anymore
 
 		PsiFile file = dir.createFile(name + ".nbt");

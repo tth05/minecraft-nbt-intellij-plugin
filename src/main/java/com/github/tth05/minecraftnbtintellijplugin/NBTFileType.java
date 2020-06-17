@@ -14,7 +14,7 @@ public class NBTFileType implements FileType {
 	@NotNull
 	@Override
 	public String getName() {
-		return "NBT";
+		return "Minecraft NBT";
 	}
 
 	@NotNull

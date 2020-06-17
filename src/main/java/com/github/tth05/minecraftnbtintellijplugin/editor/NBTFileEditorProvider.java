@@ -29,18 +29,6 @@ public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 
 	@NotNull
 	@Override
-	public String getEditorTypeId() {
-		return "nbt";
-	}
-
-	@NotNull
-	@Override
-	public FileEditorPolicy getPolicy() {
-		return FileEditorPolicy.HIDE_DEFAULT_EDITOR;
-	}
-
-	@NotNull
-	@Override
 	public FileEditorState readState(@NotNull Element sourceElement, @NotNull Project project,
 	                                 @NotNull VirtualFile file) {
 		List<String> openedNodes = new ArrayList<>();
@@ -70,5 +58,17 @@ public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 			}
 			targetElement.addContent(rootElement);
 		}
+	}
+
+	@NotNull
+	@Override
+	public FileEditorPolicy getPolicy() {
+		return FileEditorPolicy.HIDE_DEFAULT_EDITOR;
+	}
+
+	@NotNull
+	@Override
+	public String getEditorTypeId() {
+		return "nbt";
 	}
 }

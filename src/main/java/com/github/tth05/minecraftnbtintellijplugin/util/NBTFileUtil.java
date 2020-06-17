@@ -65,7 +65,7 @@ public class NBTFileUtil {
 				writeNodeToStream((NBTTagTreeNode) tree.getModel().getRoot(), outputStream, true);
 			} catch (IOException ex) {
 				new Notification("NBTSaveError",
-						"Error Saving NBT File",
+						"Error saving NBT file",
 						"Due to an unknown error the file could not be saved.",
 						NotificationType.WARNING).notify(project);
 			}

@@ -3,13 +3,12 @@
     <name>Minecraft NBT Support</name>
     <vendor>tth05</vendor>
 
-    <description><![CDATA[<p>Provides support for the NBT format used by Minecraft</p>]]></description>
+    <description><![CDATA[<p>Provides a proper way of editing NBT files inside of Intellij. Similar to the program NBT-Explorer</p>]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-        <fileType name="NBT" implementationClass="com.github.tth05.minecraftnbtintellijplugin.NBTFileType"
+        <fileType name="Minecraft NBT" implementationClass="com.github.tth05.minecraftnbtintellijplugin.NBTFileType"
                   fieldName="INSTANCE" extensions="nbt"/>
         <fileEditorProvider implementation="com.github.tth05.minecraftnbtintellijplugin.editor.NBTFileEditorProvider"/>
     </extensions>
