@@ -11,6 +11,7 @@
         <fileType name="Minecraft NBT" implementationClass="com.github.tth05.minecraftnbtintellijplugin.NBTFileType"
                   fieldName="INSTANCE" extensions="nbt"/>
         <fileEditorProvider implementation="com.github.tth05.minecraftnbtintellijplugin.editor.NBTFileEditorProvider"/>
+        <fileTypeOverrider implementation="com.github.tth05.minecraftnbtintellijplugin.NBTFileTypeOverrider"/>
     </extensions>
 
     <actions>

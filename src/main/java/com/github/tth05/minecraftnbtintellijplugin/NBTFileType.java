@@ -37,7 +37,7 @@ public class NBTFileType implements FileType {
 
 	@Override
 	public boolean isBinary() {
-		return false;
+		return true;
 	}
 
 	@Override

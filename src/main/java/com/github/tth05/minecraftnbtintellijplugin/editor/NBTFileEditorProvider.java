@@ -1,5 +1,6 @@
 package com.github.tth05.minecraftnbtintellijplugin.editor;
 
+import com.github.tth05.minecraftnbtintellijplugin.NBTFileType;
 import com.intellij.openapi.fileEditor.FileEditor;
 import com.intellij.openapi.fileEditor.FileEditorPolicy;
 import com.intellij.openapi.fileEditor.FileEditorProvider;
@@ -17,8 +18,7 @@ import java.util.List;
 public class NBTFileEditorProvider implements FileEditorProvider, DumbAware {
 	@Override
 	public boolean accept(@NotNull Project project, @NotNull VirtualFile file) {
-		return FileTypeRegistry.getInstance()
-				.isFileOfType(file, FileTypeRegistry.getInstance().getFileTypeByExtension("nbt"));
+		return FileTypeRegistry.getInstance().isFileOfType(file, NBTFileType.INSTANCE);
 	}
 
 	@NotNull
