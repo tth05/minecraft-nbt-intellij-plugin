@@ -25,6 +25,7 @@ patchPluginXml {
       - Update to newest Intellij version
       </p>
     """
+    untilBuild = null
 }
 
 publishPlugin {
