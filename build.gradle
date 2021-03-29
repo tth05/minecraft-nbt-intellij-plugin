@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.5.0'
+    id 'org.jetbrains.intellij' version '0.7.2'
 }
 
 group 'com.github.tth05'
@@ -12,17 +12,11 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-}
-
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
     version 'LATEST-EAP-SNAPSHOT'
-    sameSinceUntilBuild = true
 }
 
-//crashes on build
 buildSearchableOptions.enabled = false
 
 patchPluginXml {

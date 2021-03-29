@@ -16,7 +16,7 @@ import java.util.List;
 public class NBTFileEditorPopupGroup extends ActionGroup {
 	@NotNull
 	@Override
-	public AnAction[] getChildren(@Nullable AnActionEvent e) {
+	public AnAction @NotNull [] getChildren(@Nullable AnActionEvent e) {
 		if (e == null)
 			return new AnAction[0];
 

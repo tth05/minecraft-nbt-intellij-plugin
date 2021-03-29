@@ -21,8 +21,10 @@ import java.util.List;
 public class NBTFileEditor implements FileEditor {
 
 	private final NBTFileEditorUI component;
+	private final VirtualFile file;
 
 	public NBTFileEditor(VirtualFile file, Project project) {
+		this.file = file;
 		this.component = new NBTFileEditorUI(file, project);
 	}
 
@@ -72,6 +74,12 @@ public class NBTFileEditor implements FileEditor {
 			}
 		}
 		return new NBTFileEditorState(expanded);
+	}
+
+	@NotNull
+	@Override
+	public VirtualFile getFile() {
+		return this.file;
 	}
 
 	@Override

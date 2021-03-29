@@ -2,6 +2,7 @@ package com.github.tth05.minecraftnbtintellijplugin.editor;
 
 import com.intellij.openapi.fileEditor.FileEditorState;
 import com.intellij.openapi.fileEditor.FileEditorStateLevel;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class NBTFileEditorState implements FileEditorState {
 	}
 
 	@Override
-	public boolean canBeMergedWith(FileEditorState otherState, FileEditorStateLevel level) {
+	public boolean canBeMergedWith(@NotNull FileEditorState otherState, @NotNull FileEditorStateLevel level) {
 		return otherState instanceof NBTFileEditorState;
 	}
 

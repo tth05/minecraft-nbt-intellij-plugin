@@ -16,10 +16,12 @@ import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.components.JBTextField;
 import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -29,6 +31,7 @@ import javax.swing.event.TreeModelListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
@@ -49,7 +52,7 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 
 		//Toolbar
 		JPanel northSection = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JButton saveButton = new JButton("Save", AllIcons.Actions.Menu_saveall);
+		JButton saveButton = new JButton("Save", AllIcons.Actions.MenuSaveall);
 		saveButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
@@ -90,7 +93,7 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 				NBTTagTreeNode parent = (NBTTagTreeNode) e.getTreePath().getLastPathComponent();
 
 				if (parent.getChildCount() > 0 && parent.getType() != NBTTagType.COMPOUND) {
-					Enumeration children = parent.children();
+					Enumeration<TreeNode> children = parent.children();
 					for (int i = 0; children.hasMoreElements(); i++)
 						((NBTTagTreeNode) children.nextElement()).setName(i + "");
 				}
@@ -102,6 +105,8 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		});
 
 		this.tree = new Tree(model);
+		this.tree.setEditable(true);
+		this.tree.setCellEditor(new DefaultCellEditor(new JBTextField()));
 		this.tree.setCellRenderer(new NBTFileEditorTreeCellRenderer());
 		this.tree.addMouseListener(new MouseAdapter() {
 			@Override

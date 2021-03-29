@@ -9,6 +9,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
 import java.util.Enumeration;
 import java.util.stream.IntStream;
 
@@ -32,7 +33,7 @@ public class ChangeTypeAction extends AnAction {
 
 			int[] childIndices = IntStream.range(0, selectedNode.getChildCount()).toArray();
 			Object[] children = new Object[selectedNode.getChildCount()];
-			Enumeration enumeration = selectedNode.children();
+			Enumeration<TreeNode> enumeration = selectedNode.children();
 			for (int i = 0; enumeration.hasMoreElements(); i++) {
 				children[i] = enumeration.nextElement();
 			}

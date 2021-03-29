@@ -14,6 +14,7 @@ import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -39,7 +40,7 @@ public class NBTFileUtil {
 
 		if (nbtFileEditorUI == null || nbtFileEditorUI.getTree() == null || file == null) {
 			new Notification("NBTSaveError",
-					"Error Saving NBT File",
+					"Error saving NBT file",
 					"Due to an unknown error the file could not be saved.",
 					NotificationType.WARNING).notify(project);
 			return;
@@ -53,8 +54,9 @@ public class NBTFileUtil {
 
 	/**
 	 * Serializes the given tree and writes the bytes to the file. If the saving failed, a notification will be shown.
-	 * @param tree The tree to be serialized
-	 * @param file The file to write the bytes to
+	 *
+	 * @param tree    The tree to be serialized
+	 * @param file    The file to write the bytes to
 	 * @param project The current project to show the notification in
 	 */
 	public static void saveTreeToFile(Tree tree, VirtualFile file, Project project) {
@@ -66,7 +68,7 @@ public class NBTFileUtil {
 			} catch (IOException ex) {
 				new Notification("NBTSaveError",
 						"Error saving NBT file",
-						"Due to an unknown error the file could not be saved.",
+						"Due to an unknown error the file could not be saved: " + ex.getMessage(),
 						NotificationType.WARNING).notify(project);
 			}
 		});
@@ -100,7 +102,7 @@ public class NBTFileUtil {
 				break;
 			case BYTE_ARRAY:
 				stream.writeInt(node.getChildCount());
-				Enumeration byteArrayChildren = node.children();
+				Enumeration<TreeNode> byteArrayChildren = node.children();
 				while (byteArrayChildren.hasMoreElements()) {
 					NBTTagTreeNode child = (NBTTagTreeNode) byteArrayChildren.nextElement();
 					stream.writeByte((Byte) (child).getValue());
@@ -115,25 +117,25 @@ public class NBTFileUtil {
 				else
 					stream.writeByte(0);
 				stream.writeInt(node.getChildCount());
-				Enumeration listChildren = node.children();
+				Enumeration<TreeNode> listChildren = node.children();
 				while (listChildren.hasMoreElements())
 					writeNodeToStream((NBTTagTreeNode) listChildren.nextElement(), stream, false);
 				break;
 			case COMPOUND:
-				Enumeration compoundChildren = node.children();
+				Enumeration<TreeNode> compoundChildren = node.children();
 				while (compoundChildren.hasMoreElements())
 					writeNodeToStream((NBTTagTreeNode) compoundChildren.nextElement(), stream, true);
 				stream.writeByte(0);
 				break;
 			case INT_ARRAY:
 				stream.writeInt(node.getChildCount());
-				Enumeration intArrayChildren = node.children();
+				Enumeration<TreeNode> intArrayChildren = node.children();
 				while (intArrayChildren.hasMoreElements())
 					stream.writeInt((Integer) ((NBTTagTreeNode) intArrayChildren.nextElement()).getValue());
 				break;
 			case LONG_ARRAY:
 				stream.writeInt(node.getChildCount());
-				Enumeration longArrayChildren = node.children();
+				Enumeration<TreeNode> longArrayChildren = node.children();
 				while (longArrayChildren.hasMoreElements())
 					stream.writeLong((Long) ((NBTTagTreeNode) longArrayChildren.nextElement()).getValue());
 				break;

@@ -4,7 +4,6 @@ import com.github.tth05.minecraftnbtintellijplugin.NBTTagType;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.DialogWrapper;
-import com.intellij.openapi.util.SystemInfo;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.SimpleListCellRenderer;
 import com.intellij.ui.components.JBLabel;
@@ -15,7 +14,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
@@ -27,15 +25,11 @@ public class ChooseTypeDialog extends DialogWrapper {
 		super(project, true);
 		setTitle("Choose Type");
 
-		if (!SystemInfo.isMac) {
-			setButtonsAlignment(SwingConstants.CENTER);
-		}
-
 		this.comboBox = new ComboBox<>(NBTTagType.values());
 		this.comboBox.setSelectedItem(selectedType);
 		this.comboBox.setRenderer(new SimpleListCellRenderer<NBTTagType>() {
 			@Override
-			public void customize(JList<? extends NBTTagType> list, NBTTagType value, int index, boolean selected,
+			public void customize(@NotNull JList<? extends NBTTagType> list, NBTTagType value, int index, boolean selected,
 			                      boolean hasFocus) {
 				setText(value.name());
 				setIcon(value.getIcon());

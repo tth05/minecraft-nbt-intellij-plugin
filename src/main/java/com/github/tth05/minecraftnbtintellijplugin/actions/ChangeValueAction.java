@@ -24,7 +24,7 @@ public class ChangeValueAction extends AnAction {
 					.getLastSelectedPathComponent());
 
 			String currentValue = selectedNode.getValueAsString();
-			if(currentValue != null && currentValue.startsWith("\"") && currentValue.endsWith("\""))
+			if (currentValue != null && currentValue.startsWith("\"") && currentValue.endsWith("\""))
 				currentValue = currentValue.substring(1, currentValue.length() - 1);
 
 			String inputString = Messages.showInputDialog("Change the value of this tag to:", "Change Value", null,

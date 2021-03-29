@@ -62,7 +62,7 @@ public class NBTTagTreeNode extends DefaultMutableTreeNode {
 		if (this.value == null)
 			stringValue = "";
 		else if (this.value instanceof String)
-			stringValue = "\"" + this.value.toString() + "\"";
+			stringValue = "\"" + this.value + "\"";
 		else if (this.value instanceof Number)
 			stringValue = DECIMAL_FORMAT.format(this.value);
 		return stringValue;

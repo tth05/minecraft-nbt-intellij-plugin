@@ -7,9 +7,9 @@ import java.util.function.Function;
 
 public enum NBTTagType {
 
-	COMPOUND((byte) 10, IconLoader.getIcon("/icons/TAG_Compound.png"), true, false, null, null, null),
-	LIST((byte) 9, IconLoader.getIcon("/icons/TAG_List.png"), true, false, null, null, null),
-	BYTE((byte) 1, IconLoader.getIcon("/icons/TAG_Byte.png"), false, true, (byte) 0, (v) -> {
+	COMPOUND((byte) 10, IconLoader.getIcon("/icons/TAG_Compound.png", NBTTagType.class), true, false, null, null, null),
+	LIST((byte) 9, IconLoader.getIcon("/icons/TAG_List.png", NBTTagType.class), true, false, null, null, null),
+	BYTE((byte) 1, IconLoader.getIcon("/icons/TAG_Byte.png", NBTTagType.class), false, true, (byte) 0, (v) -> {
 		try {
 			Byte.parseByte(v);
 			return true;
@@ -17,7 +17,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Byte::parseByte),
-	SHORT((byte) 2, IconLoader.getIcon("/icons/TAG_Short.png"), false, true, (short) 0, (v) -> {
+	SHORT((byte) 2, IconLoader.getIcon("/icons/TAG_Short.png", NBTTagType.class), false, true, (short) 0, (v) -> {
 		try {
 			Short.parseShort(v);
 			return true;
@@ -25,7 +25,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Short::parseShort),
-	FLOAT((byte) 5, IconLoader.getIcon("/icons/TAG_Float.png"), false, true, 0.0F, (v) -> {
+	FLOAT((byte) 5, IconLoader.getIcon("/icons/TAG_Float.png", NBTTagType.class), false, true, 0.0F, (v) -> {
 		try {
 			Float.parseFloat(v);
 			return true;
@@ -33,7 +33,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Float::parseFloat),
-	INT((byte) 3, IconLoader.getIcon("/icons/TAG_Int.png"), false, true, 0, (v) -> {
+	INT((byte) 3, IconLoader.getIcon("/icons/TAG_Int.png", NBTTagType.class), false, true, 0, (v) -> {
 		try {
 			Integer.parseInt(v);
 			return true;
@@ -41,7 +41,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Integer::parseInt),
-	LONG((byte) 4, IconLoader.getIcon("/icons/TAG_Long.png"), false, true, 0L, (v) -> {
+	LONG((byte) 4, IconLoader.getIcon("/icons/TAG_Long.png", NBTTagType.class), false, true, 0L, (v) -> {
 		try {
 			Long.parseLong(v);
 			return true;
@@ -49,7 +49,7 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Long::parseLong),
-	DOUBLE((byte) 6, IconLoader.getIcon("/icons/TAG_Double.png"), false, true, 0.0D, (v) -> {
+	DOUBLE((byte) 6, IconLoader.getIcon("/icons/TAG_Double.png", NBTTagType.class), false, true, 0.0D, (v) -> {
 		try {
 			Double.parseDouble(v);
 			return true;
@@ -57,10 +57,13 @@ public enum NBTTagType {
 			return false;
 		}
 	}, Double::parseDouble),
-	BYTE_ARRAY((byte) 7, IconLoader.getIcon("/icons/TAG_Byte_Array.png"), true, false, null, null, null),
-	INT_ARRAY((byte) 11, IconLoader.getIcon("/icons/TAG_Int_Array.png"), true, false, null, null, null),
-	LONG_ARRAY((byte) 12, IconLoader.getIcon("/icons/TAG_Int_Array.png"), true, false, null, null, null),
-	STRING((byte) 8, IconLoader.getIcon("/icons/TAG_String.png"), false, true, "",
+	BYTE_ARRAY((byte) 7, IconLoader.getIcon("/icons/TAG_Byte_Array.png", NBTTagType.class), true, false, null, null,
+			null),
+	INT_ARRAY((byte) 11, IconLoader.getIcon("/icons/TAG_Int_Array.png", NBTTagType.class), true, false, null, null,
+			null),
+	LONG_ARRAY((byte) 12, IconLoader.getIcon("/icons/TAG_Int_Array.png", NBTTagType.class), true, false, null, null,
+			null),
+	STRING((byte) 8, IconLoader.getIcon("/icons/TAG_String.png", NBTTagType.class), false, true, "",
 			(v) -> v != null && v.length() < 32767,
 			(s) -> s);
 
