@@ -22,7 +22,7 @@ buildSearchableOptions.enabled = false
 patchPluginXml {
     changeNotes = """
       <p>
-      - Update to newest Intellij version
+      - Fix file type not visible in "Associate with file type" dialog 
       </p>
     """
     untilBuild = null
