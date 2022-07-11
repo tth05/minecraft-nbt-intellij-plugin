@@ -20,7 +20,7 @@ public class NBTFileType implements FileType {
 	@NotNull
 	@Override
 	public String getDescription() {
-		return "Named Binary Tag";
+		return "Minecraft's Named Binary Tag (NBT)";
 	}
 
 	@NotNull
@@ -42,7 +42,7 @@ public class NBTFileType implements FileType {
 
 	@Override
 	public boolean isReadOnly() {
-		return true;
+		return false;
 	}
 
 	@Nullable

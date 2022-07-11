@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.7.2'
+    id 'org.jetbrains.intellij' version '1.7.0'
 }
 
 group 'com.github.tth05'
-version '1.5.2'
+version '1.5.3'
 
 sourceCompatibility = 1.8
 
@@ -14,13 +14,13 @@ repositories {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version 'LATEST-EAP-SNAPSHOT'
+    version = 'LATEST-EAP-SNAPSHOT'
 }
 
 buildSearchableOptions.enabled = false
 
 patchPluginXml {
-    changeNotes """
+    changeNotes = """
       <p>
       - Update to newest Intellij version
       </p>
@@ -29,6 +29,6 @@ patchPluginXml {
 }
 
 publishPlugin {
-    token System.getProperty("token")
-    channels 'stable'
+    token = System.getProperty("token")
+    channels.add("stable")
 }

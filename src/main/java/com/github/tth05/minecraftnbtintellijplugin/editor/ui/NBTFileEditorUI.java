@@ -16,12 +16,10 @@ import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBScrollPane;
-import com.intellij.ui.components.JBTextField;
 import com.intellij.ui.treeStructure.Tree;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -105,8 +103,6 @@ public class NBTFileEditorUI extends JPanel implements DataProvider {
 		});
 
 		this.tree = new Tree(model);
-		this.tree.setEditable(true);
-		this.tree.setCellEditor(new DefaultCellEditor(new JBTextField()));
 		this.tree.setCellRenderer(new NBTFileEditorTreeCellRenderer());
 		this.tree.addMouseListener(new MouseAdapter() {
 			@Override

@@ -3,7 +3,8 @@
     <name>Minecraft NBT Support</name>
     <vendor>tth05</vendor>
 
-    <description><![CDATA[<p>Provides a proper way of editing NBT files inside of Intellij. Similar to the program NBT-Explorer</p>]]></description>
+    <description>
+        <![CDATA[<p>Provides a proper way of editing NBT files inside of Intellij. Similar to the program NBT-Explorer</p>]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -12,6 +13,7 @@
                   fieldName="INSTANCE" extensions="nbt"/>
         <fileEditorProvider implementation="com.github.tth05.minecraftnbtintellijplugin.editor.NBTFileEditorProvider"/>
         <fileTypeOverrider implementation="com.github.tth05.minecraftnbtintellijplugin.NBTFileTypeOverrider"/>
+        <notificationGroup displayType="STICKY_BALLOON" id="NBTSaveError"/>
     </extensions>
 
     <actions>
